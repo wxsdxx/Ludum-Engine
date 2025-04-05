@@ -1,1 +1,166 @@
-{"song":{"player1":"bf","notes":[{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[[8000,-1,"Set GF Speed","2",""]],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[[24000,-1,"Set GF Speed","1",""]],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[[40000,-1,"Set GF Speed","2",""]],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[[56000,-1,"Set GF Speed","1",""]],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":false},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"sectionNotes":[],"lengthInSteps":16,"mustHitSection":true},{"lengthInSteps":16,"altAnim":false,"typeOfSection":0,"sectionNotes":[],"bpm":120,"changeBPM":false,"mustHitSection":true},{"lengthInSteps":16,"altAnim":false,"typeOfSection":0,"sectionNotes":[],"bpm":120,"changeBPM":false,"mustHitSection":true},{"lengthInSteps":16,"altAnim":false,"typeOfSection":0,"sectionNotes":[],"bpm":120,"changeBPM":false,"mustHitSection":true}],"player2":"dad","song":"Fresh","validScore":true,"needsVoices":true,"speed":1.8,"bpm":120}}
+{
+	"song": {
+		"events": [
+			[
+				4000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				7750,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				12000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				16000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				19500,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				23750,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				31500,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				40000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				43625,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				47875,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				51750,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				56000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				63625,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				72000,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				75875,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				79500,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			]
+		]
+	}
+}

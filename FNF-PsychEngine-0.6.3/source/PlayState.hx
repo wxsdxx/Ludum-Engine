@@ -80,7 +80,7 @@ using StringTools;
 class PlayState extends MusicBeatState
 {
 
-	public static var STRUM_X = 42;
+	public static var STRUM_X = -15;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
@@ -370,7 +370,7 @@ class PlayState extends MusicBeatState
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
-		var rating:Rating = new Rating('shit');
+		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0;
 		rating.score = 50;
 		rating.noteSplash = false;
@@ -3431,6 +3431,8 @@ class PlayState extends MusicBeatState
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch(eventName) {
+			case 'Rating Popup':
+				popUpScore(lastGlobalNote);
 			case 'Dadbattle Spotlight':
 				var val:Null<Int> = Std.parseInt(value1);
 				if(val == null) val = 0;
@@ -3828,9 +3830,9 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
-			if (lastGlobalNote != null) {
-				popUpScore(lastGlobalNote);
-			}
+			//if (lastGlobalNote != null) {
+			//	popUpScore(lastGlobalNote);
+			//}
 		}
 		else
 		{
