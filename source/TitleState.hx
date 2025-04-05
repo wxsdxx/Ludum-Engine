@@ -253,12 +253,12 @@ class TitleState extends MusicBeatState
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
 			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('title'));
+			// music.loadStream(Paths.music('freakyMenu'));
 			// FlxG.sound.list.add(music);
 			// music.play();
 
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('title'), 0);
+				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
 		}
 
@@ -651,12 +651,12 @@ class TitleState extends MusicBeatState
 				gfDance.animation.play('danceLeft');
 		}
 
-		//FlxG.sound.playMusic(Paths.music('title'), 0);
+		//FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 		//FlxG.sound.music.fadeIn(4, 0, 0.7);
 		
 		function fadeInMusic() {
 			//FlxG.sound.music.stop();
-			FlxG.sound.playMusic(Paths.music('title'), 0);
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 
@@ -744,7 +744,7 @@ class TitleState extends MusicBeatState
 		if (!skippedIntro)
 		{
 			/*if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('title'), 0);
+				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			} */
 			if (playJingle) //Ignore deez
 			{
@@ -771,7 +771,7 @@ class TitleState extends MusicBeatState
 						skippedIntro = true;
 						playJingle = false;
 
-						FlxG.sound.playMusic(Paths.music('title'), 0);
+						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -793,7 +793,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music('title'), 0);
+						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 					};
