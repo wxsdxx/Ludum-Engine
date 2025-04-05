@@ -1,28 +1,21 @@
-# Friday Night Funkin' - Psych Engine
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+# Friday Night Funkin' Ludum Dare Engine
+This engine is based off of [FNF Release 1.0,](https://github.com/FunkinCrew/Funkin/releases/tag/v0.1.0) and was coded on [Psych Engine 0.6.3](https://github.com/ShadowMario/FNF-PsychEngine/releases/tag/0.6.3) this "Engine" is very Work in Progress.
+
+![](https://i.imgur.com/HE6KTGU.png)
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
-
-Follow a Friday Night Funkin' source code compilation tutorial, after this you will need to install LuaJIT.
-
-To install LuaJIT do this: `haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit` on a Command prompt/PowerShell
-
-...Or if you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml
-
-
-If you get an error about StatePointer when using Lua, run `haxelib remove linc_luajit` into Command Prompt/PowerShell, then re-install linc_luajit.
-
-If you want video support on your mod, simply do `haxelib install hxCodec` on a Command prompt/PowerShell
-
-otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
-
+Refer to Psych Engine 0.6.3 Build Instructions.
+[Or watch this video](https://www.youtube.com/watch?v=2bvJPK0dzFY)
 ## Credits:
+### Ludum Engine
+* xreadora - Programmer
+* OBSCURA - Artist
+### Psych Engine
 * Shadow Mario - Programmer
 * RiverOaken - Artist
 * Yoshubs - Assistant Programmer
 
-### Special Thanks
+### Special Thanks (Psych Engine)
 * bbpanzu - Ex-Programmer
 * shubs - New Input System
 * SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform
@@ -33,8 +26,23 @@ otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
 * Smokey - Sprite Atlas Support
 * Nebula the Zorua - LUA JIT Fork and some Lua reworks
 _____________________________________
+# Ludum Dare Engine Features
 
-# Features
+## Things that are not in Ludum Dare have been removed! 
+* No Opponent Note Glow
+* No Score/Rating/Misses
+* No Timebar
+* No Healthbar Colors
+## Things that are in Ludum Dare has been added!
+* Old Title Menu
+* Old Title Music
+* Old Sound Effects
+* Old Gameover Screen (WIP)
+###  Much more is to come! Stay Tuned!
+
+![](https://i.imgur.com/iUAbPOa.png)
+
+# Psych Engine Features
 
 ## Attractive animated dialogue boxes:
 
@@ -46,31 +54,8 @@ _____________________________________
 * Comes with a Mod Organizing/Disabling Menu.
 
 
-## Atleast one change to every week:
-### Week 1:
-  * New Dad Left sing sprite
-  * Unused stage lights are now used
-### Week 2:
-  * Both BF and Skid & Pump does "Hey!" animations
-  * Thunders does a quick light flash and zooms the camera in slightly
-  * Added a quick transition/cutscene to Monster
-### Week 3:
-  * BF does "Hey!" during Philly Nice
-  * Blammed has a cool new colors flash during that sick part of the song
-### Week 4:
-  * Better hair physics for Mom/Boyfriend (Maybe even slightly better than Week 7's :eyes:)
-  * Henchmen die during all songs. Yeah :(
-### Week 5:
-  * Bottom Boppers and GF does "Hey!" animations during Cocoa and Eggnog
-  * On Winter Horrorland, GF bops her head slower in some parts of the song.
-### Week 6:
-  * On Thorns, the HUD is hidden during the cutscene
-  * Also there's the Background girls being spooky during the "Hey!" parts of the Instrumental
-
 ## Cool new Chart Editor changes and countless bug fixes
-![](https://github.com/ShadowMario/FNF-PsychEngine/blob/main/docs/img/chart.png?raw=true)
 * You can now chart "Event" notes, which are bookmarks that trigger specific actions that usually were hardcoded on the vanilla version of the game.
-* Your song's BPM can now have decimal values
 * You can manually adjust a Note's strum time if you're really going for milisecond precision
 * You can change a note's type on the Editor, it comes with two example types:
   * Alt Animation: Forces an alt animation to play, useful for songs like Ugh/Stress
