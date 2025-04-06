@@ -77,8 +77,14 @@ import vlc.MP4Handler;
 
 using StringTools;
 
+typedef PlayStateData = {
+	iconColors:Bool,
+	dadNoteGlow:Bool
+}
+
 class PlayState extends MusicBeatState
 {
+	public static var playStateJSON:PlayStateData;
 
 	public static var STRUM_X = -15;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -330,6 +336,8 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		playStateJSON = Json.parse(Paths.getTextFromFile('images/gameplaySettings.json'));
+
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
@@ -1512,8 +1520,15 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0),
-			FlxColor.fromRGB(0, 255, 0));
+		if (playStateJSON.iconColors) {
+			healthBar.createFilledBar
+			(
+				FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+				FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
+			);
+		} else {
+			healthBar.createFilledBar(FlxColor.fromRGB(255, 0, 0), FlxColor.fromRGB(0, 255, 0));
+		}
 
 		healthBar.updateBar();
 	}
@@ -3440,7 +3455,9 @@ class PlayState extends MusicBeatState
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch(eventName) {
 			case 'Rating Popup':
-				popUpScore(lastGlobalNote);
+				if (lastGlobalNote != null) {
+					popUpScore(lastGlobalNote);
+				}
 			case 'Dadbattle Spotlight':
 				var val:Null<Int> = Std.parseInt(value1);
 				if(val == null) val = 0;
@@ -4558,7 +4575,7 @@ class PlayState extends MusicBeatState
 		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
 		{
 			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daNote.animSuffix;
-			char.playAnim(animToPlay, true);
+			//char.playAnim(animToPlay, true);
 		}
 
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
@@ -5199,8 +5216,14 @@ class PlayState extends MusicBeatState
 			spr = playerStrums.members[id];
 		}
 
-		if(spr != null && isDad == false) {
-			spr.playAnim('confirm', true);
+		if(spr != null) {
+			if (playStateJSON.dadNoteGlow) {
+				spr.playAnim('confirm', true);
+			} else {
+				if (!isDad) {
+					spr.playAnim('confirm', true);
+				}
+			}
 			spr.resetAnim = time;
 		}
 	}

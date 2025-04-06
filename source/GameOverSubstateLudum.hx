@@ -27,6 +27,7 @@ class GameOverSubstateLudum extends MusicBeatSubstate
 
         restartSprite = new FlxSprite(275, 50).loadGraphic(Paths.image('restart'));
         restartSprite.setGraphicSize(Std.int(restartSprite.width * 0.65));
+        restartSprite.scrollFactor.set();
         restartOriginalY = restartSprite.y;
 
         FlxTween.tween(restartSprite, { y: restartOriginalY - 50 }, 3, 
@@ -44,6 +45,9 @@ class GameOverSubstateLudum extends MusicBeatSubstate
         loseSprite = new FlxSprite(100, 100);
         loseSprite.frames = Paths.getSparrowAtlas('lose');
         loseSprite.animation.addByPrefix('idle', 'lose... instance 1', 24, false);
+        //loseSprite.screenCenter();
+        //loseSprite.x -= 100;
+        loseSprite.scrollFactor.set();
         add(loseSprite);
 
         new FlxTimer().start(0.5, function(tmr:FlxTimer)

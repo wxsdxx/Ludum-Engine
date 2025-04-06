@@ -1,0 +1,14 @@
+{	
+	"backgroundSprite": "menuBG",
+	"backgroundDestatSprite": "menuDesat",
+	"cameraMove": true,
+	"buttons": [
+		"story_mode",
+		"freeplay",
+		"credits",
+		"options"
+	],
+	"font": "vcr.ttf",
+	"fontOutline": true,
+	"ludumEngineVersion": true
+}

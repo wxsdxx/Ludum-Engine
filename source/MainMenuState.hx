@@ -3,6 +3,7 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import haxe.Json;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -23,24 +24,43 @@ import flixel.input.keyboard.FlxKey;
 
 using StringTools;
 
+typedef MenuData = 
+{
+	
+	backgroundSprite:String,
+	backgroundDestatSprite:String,
+	cameraMove:Bool,
+	buttons:Array<String>,
+	font:String,
+	fontOutline:Bool,
+	ludumEngineVersion:Bool
+
+}
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.2'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
+	public static var ludumEngineVersion:String = '0.0.1';
 	public static var curSelected:Int = 0;
+
+	public static var menuJSON:MenuData;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
+	private var cameraMove:Bool;
 	
-	var optionShit:Array<String> = [
+	var optionShit:Array<String>;
+	/*
+	[
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
-		//#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		//'credits',
-		//#if !switch 'donate', #end
+		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		#if !switch 'donate', #end
+		'credits',
 		'options'
 	];
+	*/
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -73,13 +93,24 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		menuJSON = Json.parse(Paths.getTextFromFile('images/menuTitleSettings.json'));
+
+		optionShit = menuJSON.buttons;
+		cameraMove = menuJSON.cameraMove;
+
+		var yScroll:Float;
+		if (cameraMove) {
+			yScroll = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
+		} else {
+			yScroll = 0;
+		}
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundSprite));
 		bg.scrollFactor.set(0, /*yScroll*/ 0);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		//bg.color = 0xfffbff00;
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -87,8 +118,8 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundDestatSprite));
+		magenta.scrollFactor.set(0, /*yScroll*/0);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
@@ -130,16 +161,31 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var ludumVersionText:FlxText = new FlxText(12, FlxG.height - 54, 0, "Ludum Engine v" + ludumEngineVersion, 12);
+		ludumVersionText.scrollFactor.set();
+
+		if (menuJSON.ludumEngineVersion) { add(ludumVersionText); }
+
+		var psychVersionText:FlxText = new FlxText(12, FlxG.height - 54, 0, "Psych Engine v" + psychEngineVersion, 12);
+		psychVersionText.scrollFactor.set();
 		#if PSYCH_WATERMARKS
-		add(versionShit);
+		add(psychVersionText);
+		ludumVersionText.y -= 30;
 		#end
+
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		add(versionShit);
+
+		if (menuJSON.fontOutline) {
+			versionShit.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			psychVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			ludumVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		} else {
+			versionShit.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
+			psychVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
+			ludumVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
+		}
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -184,7 +230,7 @@ class MainMenuState extends MusicBeatState
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (FlxG.keys.justPressed.R) {
-			MusicBeatState.switchState(new GameOverSubstateLudum());
+			//MusicBeatState.switchState(new GameOverSubstateLudum());
 		}
 
 		if (!selectedSomethin)
