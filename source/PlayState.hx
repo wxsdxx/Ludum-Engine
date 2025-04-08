@@ -77,26 +77,24 @@ import vlc.MP4Handler;
 
 using StringTools;
 
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> experimental
 typedef PlayStateData = {
 	iconColors:Bool,
 	dadNoteGlow:Bool,
 	noteOffset:Bool,
-<<<<<<< HEAD
 	forceGhostTappingOff:Bool
 }
 
+<<<<<<< Updated upstream
 =======
+typedef PlayStateData = {
+	iconColors:Bool,
+	dadNoteGlow:Bool,
+	noteOffset:Bool,
 	forceGhostTappingOff:Bool,
 	ratingRotation:Bool
 }
 
 >>>>>>> Stashed changes
->>>>>>> experimental
 class PlayState extends MusicBeatState
 {
 	public static var playStateJSON:PlayStateData;
