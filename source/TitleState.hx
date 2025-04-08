@@ -37,12 +37,17 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxAxes;
 
 using StringTools;
 typedef TitleData =
 {
 
 	backgroundSprite:String,
+	scrollingBG:Bool,
+	scrollPixelsPerSecondX:Float,
+	scrollPixelsPerSecondY:Float,
 	titleXY:Array<Float>, // titleCentered Required OFF
 	titleCenteredAcrossXY:Array<Bool>,
 	titleMove:Bool,
@@ -253,10 +258,18 @@ class TitleState extends MusicBeatState
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite();
+		var bg:FlxSprite;
+		bg = new FlxSprite(0,0).loadGraphic(Paths.image(titleJSON.backgroundSprite));
+		var scrollingBG:FlxBackdrop;
+		scrollingBG = new FlxBackdrop(Paths.image(titleJSON.backgroundSprite), true, true, 0, 0);
+		scrollingBG.velocity.set(titleJSON.scrollPixelsPerSecondX, titleJSON.scrollPixelsPerSecondY);
 
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
+			if (titleJSON.scrollingBG) {
+				add(scrollingBG);
+			} else {
+				add(bg);
+			}
 		}else{
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		}
@@ -264,7 +277,7 @@ class TitleState extends MusicBeatState
 		// bg.antialiasing = ClientPrefs.globalAntialiasing;
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
 		// bg.updateHitbox();
-		add(bg);
+		//add(bg);
 
 		logoBl = new FlxSprite(titleJSON.titleXY[0], titleJSON.titleXY[1]);
 		
@@ -275,7 +288,6 @@ class TitleState extends MusicBeatState
 			logoBl.animation.addByPrefix('idle', titleJSON.titleAnimation, titleJSON.titleAnimationFrames);
 			logoBl.animation.play('idle');
 		}
-
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.updateHitbox();
 		centerOffChecks(titleJSON.titleCenteredAcrossXY[0], titleJSON.titleCenteredAcrossXY[1], logoBl);
