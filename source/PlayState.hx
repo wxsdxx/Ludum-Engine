@@ -81,13 +81,6 @@ typedef PlayStateData = {
 	iconColors:Bool,
 	dadNoteGlow:Bool,
 	noteOffset:Bool,
-	forceGhostTappingOff:Bool
-}
-
-typedef PlayStateData = {
-	iconColors:Bool,
-	dadNoteGlow:Bool,
-	noteOffset:Bool,
 	forceGhostTappingOff:Bool,
 	ratingRotation:Bool
 }
