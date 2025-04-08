@@ -42,14 +42,20 @@ using StringTools;
 typedef TitleData =
 {
 
-	titlex:Float,
-	titley:Float,
-	startx:Float,
-	starty:Float,
-	gfx:Float,
-	gfy:Float,
 	backgroundSprite:String,
+	titleCentered:Bool,
+	titleXY:Array<Float>, // titleCentered Required OFF
+	titleMove:Bool,
+	titleSprite:String,
+	titleAnimated:Bool, // titleSprite Required ON
+	titleAnimation:String, //titleAnimated Required ON
+	titleAnimationFrames:Int,
+	displayChar:Bool,
+	charName:String,
+	charSize:Float,
+	charXY:Array<Float>,
 	bpm:Int
+
 }
 class TitleState extends MusicBeatState
 {
@@ -160,24 +166,24 @@ class TitleState extends MusicBeatState
 		Highscore.load();
 
 		// IGNORE THIS!!!
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
+		titleJSON = Json.parse(Paths.getTextFromFile('images/titleSettings.json'));
 
 		#if TITLE_SCREEN_EASTER_EGG
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
 		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())
 		{
 			case 'SHADOW':
-				titleJSON.gfx += 210;
-				titleJSON.gfy += 40;
+				titleJSON.charXY[0] += 210;
+				titleJSON.charXY[1] += 40;
 			case 'RIVER':
-				titleJSON.gfx += 100;
-				titleJSON.gfy += 20;
+				titleJSON.charXY[0] += 100;
+				titleJSON.charXY[1] += 20;
 			case 'SHUBS':
-				titleJSON.gfx += 160;
-				titleJSON.gfy -= 10;
+				titleJSON.charXY[0] += 160;
+				titleJSON.charXY[1] -= 10;
 			case 'BBPANZU':
-				titleJSON.gfx += 45;
-				titleJSON.gfy += 100;
+				titleJSON.charXY[0] += 45;
+				titleJSON.charXY[1] += 100;
 		}
 		#end
 
@@ -278,15 +284,33 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite().loadGraphic(Paths.image("logo"));
+		logoBl = new FlxSprite(titleJSON.titleXY[0], titleJSON.titleXY[1]);
+		
+		if (!titleJSON.titleAnimated) {
+			logoBl.loadGraphic(Paths.image(titleJSON.titleSprite));
+		} else {
+			logoBl.frames = Paths.getSparrowAtlas(titleJSON.titleSprite);
+			logoBl.animation.addByPrefix('idle', titleJSON.titleAnimation, titleJSON.titleAnimationFrames);
+			logoBl.animation.play('idle');
+		}
+
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.updateHitbox();
-		logoBl.screenCenter();
+		if (titleJSON.titleCentered) { logoBl.screenCenter(); }
 
-		logoBlShadow = new FlxSprite().loadGraphic(Paths.image("logo"));
+		logoBlShadow = new FlxSprite(titleJSON.titleXY[0], titleJSON.titleXY[1]).loadGraphic(Paths.image(titleJSON.titleSprite));
+
+		if (!titleJSON.titleAnimated) {
+			logoBlShadow.loadGraphic(Paths.image(titleJSON.titleSprite));
+		} else {
+			logoBlShadow.frames = Paths.getSparrowAtlas(titleJSON.titleSprite);
+			logoBlShadow.animation.addByPrefix('idle', titleJSON.titleAnimation, titleJSON.titleAnimationFrames);
+			logoBlShadow.animation.play('idle');
+		}
+
 		logoBlShadow.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBlShadow.updateHitbox();
-		logoBlShadow.screenCenter();
+		if (titleJSON.titleCentered) { logoBlShadow.screenCenter(); }
 		logoBlShadow.color = FlxColor.BLACK;
 
 
@@ -295,22 +319,24 @@ class TitleState extends MusicBeatState
 		
 		var logoSpeed = 0.6;
 
-		FlxTween.tween(logoBl, {y: originalY - 50}, logoSpeed, {
-        	ease: FlxEase.quadInOut,
-			type: PINGPONG
-    	});
-
-		new FlxTimer().start(0.15, function(tmr:FlxTimer)
-		{
-			FlxTween.tween(logoBlShadow, {y: shadowOriginalY - 50}, logoSpeed, {
+		if (titleJSON.titleMove) {
+			FlxTween.tween(logoBl, {y: originalY - 50}, logoSpeed, {
         		ease: FlxEase.quadInOut,
 				type: PINGPONG
     		});
-		});
+
+			new FlxTimer().start(0.15, function(tmr:FlxTimer)
+			{
+				FlxTween.tween(logoBlShadow, {y: shadowOriginalY - 50}, logoSpeed, {
+        			ease: FlxEase.quadInOut,
+					type: PINGPONG
+    			});
+			});
+		}
 
 
 		swagShader = new ColorSwap();
-		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
+		gfDance = new FlxSprite(titleJSON.charXY[1], titleJSON.charXY[2]);
 		gfDance.visible = false;
 
 		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
@@ -353,9 +379,9 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 		//for(v in logoBl, logoBlShadow) { v.shader = swagShader.shader }
 
-		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
-		titleText.visible = false;
-		//titleText.screenCenter();
+		//titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
+		//titleText.visible = false;
+		////titleText.screenCenter();
 		#if (desktop && MODS_ALLOWED)
 		var path = "mods/" + Paths.currentModDirectory + "/images/titleEnter.png";
 		//trace(path, FileSystem.exists(path));
@@ -367,35 +393,34 @@ class TitleState extends MusicBeatState
 			path = "assets/images/titleEnter.png";
 		}
 		//trace(path, FileSystem.exists(path));
-		titleText.frames = FlxAtlasFrames.fromSparrow(BitmapData.fromFile(path),File.getContent(StringTools.replace(path,".png",".xml")));
+		//titleText.frames = FlxAtlasFrames.fromSparrow(BitmapData.fromFile(path),File.getContent(StringTools.replace(path,".png",".xml")));
 		#else
 
-		titleText.frames = Paths.getSparrowAtlas('titleEnter');
+		//titleText.frames = Paths.getSparrowAtlas('titleEnter');
 		#end
 		var animFrames:Array<FlxFrame> = [];
 		@:privateAccess {
-			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
-			titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
+			//titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
+			//titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
 		}
 		
 		if (animFrames.length > 0) {
 			newTitle = true;
 			
-			titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
-			titleText.animation.addByPrefix('press', ClientPrefs.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
+			//titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
+			//titleText.animation.addByPrefix('press', ClientPrefs.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
 		}
 		else {
 			newTitle = false;
 			
-			titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
-			titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
+			//titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
+			//titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
 		}
 		
-		titleText.antialiasing = ClientPrefs.globalAntialiasing;
-		titleText.animation.play('idle');
-		titleText.updateHitbox();
-		titleText.screenCenter(X);
-		add(titleText);
+		//titleText.antialiasing = ClientPrefs.globalAntialiasing;
+		//titleText.animation.play('idle');
+		//titleText.updateHitbox();
+		//titleText.screenCenter(X);
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
 		logo.screenCenter();
@@ -506,16 +531,15 @@ class TitleState extends MusicBeatState
 				
 				timer = FlxEase.quadInOut(timer);
 				
-				titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
-				titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
+				//titleText.color = FlxColor.interpolate(//titleTextColors[0], //titleTextColors[1], timer);
+				//titleText.alpha = FlxMath.lerp(//titleTextAlphas[0], //titleTextAlphas[1], timer);
 			}
 			
 			if(pressedEnter)
 			{
-				titleText.color = FlxColor.WHITE;
-				titleText.alpha = 1;
+				//titleText.color = FlxColor.WHITE;
+				//titleText.alpha = 1;
 				
-				if(titleText != null) titleText.animation.play('press');
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
 				FlxG.sound.play(Paths.sound('titleShoot'), 0.7);
