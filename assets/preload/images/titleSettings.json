@@ -1,10 +1,13 @@
 {	
 	"backgroundSprite": "ludumDareBG",
 
-	"titleCentered": true,
 	"titleXY": [
 		0,
 		0
+	],
+	"titleCenteredAcrossXY": [
+		true,
+		true
 	],
 
 	"titleMove": true,
@@ -15,12 +18,27 @@
 	"titleAnimationFrames": 24,
 
 	"displayChar": false,
-	"charName": "",
-	"charSize": 1,
+	"charName": "gfDanceTitle",
+	"charAnimation" : "gfDance",
+	"charFPS": 24,
+	"charSize": 0.4,
 	"charXY": [
 		0,
-		0
+		450
+	],
+	"charCenterAcrossXY": [
+		true,
+		false
 	],
 
-	"bpm": 140
+	"bpm": 140,
+	
+	"README" : [
+		"Hey! This isnt actually used but heres some things to clarify before using this!",
+		"titleCentered is required off to use titleXY.",
+		"titleAnimated is required on to use titleAnimation and titleAnimationFrames.",
+		"displayChar is required on to use charName, charSize and charXY and charCenterAcrossXY",
+		"centerAcrossXY will center across the first value (X) and second value (Y) depending if they are true or false.",
+		"Thanks for using the engine!"
+	]
 }
