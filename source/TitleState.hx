@@ -262,7 +262,7 @@ class TitleState extends MusicBeatState
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image(titleJSON.backgroundSprite));
 		var scrollingBG:FlxBackdrop;
 		scrollingBG = new FlxBackdrop(Paths.image(titleJSON.backgroundSprite), true, true, 0, 0);
-		scrollingBG.velocity.set(titleJSON.scrollPixelsPerSecondX, titleJSON.scrollPixelsPerSecondY);
+		scrollingBG.velocity.set((titleJSON.scrollPixelsPerSecondX * 100), (titleJSON.scrollPixelsPerSecondY * 100));
 
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
 			if (titleJSON.scrollingBG) {

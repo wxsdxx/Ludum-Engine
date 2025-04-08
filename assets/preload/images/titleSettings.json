@@ -1,8 +1,8 @@
 {	
 	"backgroundSprite": "ludumDareBG",
 	"scrollingBG": false,
-	"scrollPixelsPerSecondX": 100,
-	"scrollPixelsPerSecondY": 100,
+	"scrollPixelsPerSecondX": 1,
+	"scrollPixelsPerSecondY": 1,
 
 	"titleXY": [
 		0,
