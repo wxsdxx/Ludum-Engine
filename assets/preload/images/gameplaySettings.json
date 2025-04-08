@@ -2,5 +2,10 @@
     "iconColors": false,
     "dadNoteGlow": false,
     "noteOffset": true,
+<<<<<<< HEAD
     "forceGhostTappingOff": true
+=======
+    "forceGhostTappingOff": true,
+    "ratingRotation": true
+>>>>>>> experimental
 }

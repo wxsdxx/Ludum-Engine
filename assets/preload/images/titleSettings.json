@@ -1,0 +1,26 @@
+{	
+	"backgroundSprite": "ludumDareBG",
+
+	"titleCentered": true,
+	"titleXY": [
+		0,
+		0
+	],
+
+	"titleMove": true,
+
+	"titleSprite": "logo",
+	"titleAnimated": false,
+	"titleAnimation": "",
+	"titleAnimationFrames": 24,
+
+	"displayChar": false,
+	"charName": "",
+	"charSize": 1,
+	"charXY": [
+		0,
+		0
+	],
+
+	"bpm": 140
+}

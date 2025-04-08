@@ -77,13 +77,26 @@ import vlc.MP4Handler;
 
 using StringTools;
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> experimental
 typedef PlayStateData = {
 	iconColors:Bool,
 	dadNoteGlow:Bool,
 	noteOffset:Bool,
+<<<<<<< HEAD
 	forceGhostTappingOff:Bool
 }
 
+=======
+	forceGhostTappingOff:Bool,
+	ratingRotation:Bool
+}
+
+>>>>>>> Stashed changes
+>>>>>>> experimental
 class PlayState extends MusicBeatState
 {
 	public static var playStateJSON:PlayStateData;
@@ -4210,7 +4223,9 @@ class PlayState extends MusicBeatState
 		rating.visible = (!ClientPrefs.hideHud && showRating);
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
-		rating.angularVelocity = 25;
+		if (playStateJSON.ratingRotation) {
+			rating.angularVelocity = FlxG.random.int(-25, 25);
+		}
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
 		comboSpr.cameras = [camHUD];
