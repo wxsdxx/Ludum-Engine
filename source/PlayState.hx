@@ -84,8 +84,6 @@ typedef PlayStateData = {
 	forceGhostTappingOff:Bool
 }
 
-<<<<<<< Updated upstream
-=======
 typedef PlayStateData = {
 	iconColors:Bool,
 	dadNoteGlow:Bool,
@@ -93,8 +91,6 @@ typedef PlayStateData = {
 	forceGhostTappingOff:Bool,
 	ratingRotation:Bool
 }
-
->>>>>>> Stashed changes
 class PlayState extends MusicBeatState
 {
 	public static var playStateJSON:PlayStateData;
