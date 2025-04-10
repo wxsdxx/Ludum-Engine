@@ -471,7 +471,14 @@ class TitleState extends MusicBeatState
 		if (FlxG.keys.justPressed.R) { 
 			FlxTransitionableState.skipNextTransIn = true; 
 			FlxTransitionableState.skipNextTransOut = true; 
-			MusicBeatState.switchState(new TitleState()); }
+			MusicBeatState.switchState(new TitleState()); 
+		}
+		if (FlxG.keys.justPressed.SHIFT) {
+			FlxTransitionableState.skipNextTransIn = true; 
+			FlxTransitionableState.skipNextTransOut = true; 
+			MusicBeatState.switchState(new MainMenuState()); 
+		}
+
 		#if mobile
 		for (touch in FlxG.touches.list)
 		{
