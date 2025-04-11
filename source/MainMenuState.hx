@@ -28,7 +28,7 @@ typedef MenuData =
 {
 	
 	backgroundSprite:String,
-	backgroundDestatSprite:String,
+	backgroundDesatSprite:String,
 	cameraMove:Bool,
 	buttons:Array<String>,
 	font:String,
@@ -47,7 +47,6 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	private var cameraMove:Bool;
 	
 	var optionShit:Array<String>;
 	/*
@@ -96,16 +95,15 @@ class MainMenuState extends MusicBeatState
 		menuJSON = Json.parse(Paths.getTextFromFile('images/menuTitleSettings.json'));
 
 		optionShit = menuJSON.buttons;
-		cameraMove = menuJSON.cameraMove;
 
 		var yScroll:Float;
-		if (cameraMove) {
+		if (menuJSON.cameraMove) {
 			yScroll = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		} else {
 			yScroll = 0;
 		}
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundSprite));
-		bg.scrollFactor.set(0, /*yScroll*/ 0);
+		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -118,8 +116,8 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundDestatSprite));
-		magenta.scrollFactor.set(0, /*yScroll*/0);
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundDesatSprite));
+		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
@@ -151,7 +149,12 @@ class MainMenuState extends MusicBeatState
 			menuItem.ID = i;
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
+			var scr:Float;
+			if (menuJSON.cameraMove) {
+				scr = (optionShit.length - 4) * 0.135;
+			} else {
+				scr = 0;
+			}
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;

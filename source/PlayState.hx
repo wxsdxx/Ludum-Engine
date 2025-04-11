@@ -79,14 +79,17 @@ using StringTools;
 
 typedef PlayStateData = {
 	iconColors:Bool,
-	dadNoteGlow:Bool
+	dadNoteGlow:Bool,
+	noteOffset:Bool,
+	forceGhostTappingOff:Bool,
+	ratingRotation:Bool
 }
-
 class PlayState extends MusicBeatState
 {
 	public static var playStateJSON:PlayStateData;
 
 	public static var STRUM_X = -15;
+
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
@@ -337,6 +340,12 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		playStateJSON = Json.parse(Paths.getTextFromFile('images/gameplaySettings.json'));
+
+		if (playStateJSON.noteOffset) {
+			STRUM_X = -15;
+		} else {
+			STRUM_X = 42;
+		}
 
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
@@ -4201,6 +4210,9 @@ class PlayState extends MusicBeatState
 		rating.visible = (!ClientPrefs.hideHud && showRating);
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
+		if (playStateJSON.ratingRotation) {
+			rating.angularVelocity = FlxG.random.int(-25, 25);
+		}
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
 		comboSpr.cameras = [camHUD];
@@ -4213,6 +4225,7 @@ class PlayState extends MusicBeatState
 		comboSpr.y -= ClientPrefs.comboOffset[1];
 		comboSpr.y += 60;
 		comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
+
 
 		insert(members.indexOf(strumLineNotes), rating);
 		
@@ -4351,7 +4364,12 @@ class PlayState extends MusicBeatState
 				var lastTime:Float = Conductor.songPosition;
 				Conductor.songPosition = FlxG.sound.music.time;
 
-				var canMiss:Bool = /*!ClientPrefs.ghostTapping;*/true;
+				var canMiss:Bool = true;
+				if (playStateJSON.forceGhostTappingOff) {
+					canMiss = true;
+				} else {
+					canMiss = ClientPrefs.ghostTapping;
+				}
 
 				// heavily based on my own code LOL if it aint broke dont fix it
 				var pressNotes:Array<Note> = [];

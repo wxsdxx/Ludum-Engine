@@ -1,12 +1,13 @@
 {	
 	"backgroundSprite": "menuBG",
-	"backgroundDestatSprite": "menuDesat",
-	"cameraMove": true,
+	"backgroundDesatSprite": "menuDesat",
+	"cameraMove": false,
 	"buttons": [
 		"story_mode",
 		"freeplay",
 		"credits",
-		"options"
+		"options",
+		"mods"
 	],
 	"font": "vcr.ttf",
 	"fontOutline": true,
