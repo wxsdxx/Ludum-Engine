@@ -3,5 +3,5 @@
     "dadNoteGlow": false,
     "noteOffset": true,
     "forceGhostTappingOff": true,
-    "ratingRotation": true
+    "ratingRotation": false
 }

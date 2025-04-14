@@ -1,54 +1,166 @@
 {
 	"song": {
-		"speed": 2.6,
-		"stage": "tank",
-		"player1": "bf-holding-gf",
-		"player2": "tankman",
-		"player3": null,
 		"events": [
 			[
-				62022.4719101124,
+				10786.5168539326,
 				[
 					[
-						"Play Animation",
-						"singDOWN-alt",
-						"dad"
-					],
-					[
-						"Set Property",
-						"defaultCamZoom",
-						"1.08"
-					],
-					[
-						"Camera Follow Pos",
-						"320",
-						"504"
+						"Rating Popup",
+						"",
+						""
 					]
 				]
 			],
 			[
-				64719.1011235955,
+				21573.0337078652,
 				[
 					[
-						"Camera Follow Pos",
+						"Rating Popup",
 						"",
 						""
-					],
+					]
+				]
+			],
+			[
+				24269.6629213483,
+				[
 					[
-						"Set Property",
-						"defaultCamZoom",
-						"0.9"
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				26966.2921348315,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				29662.9213483146,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				32359.5505617978,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				43146.0674157303,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				53932.5842696629,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				62022.4719101124,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				75505.6179775281,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				80898.8764044945,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				86292.1348314608,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				97078.6516853934,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				107865.168539326,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				113258.426966292,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
+					]
+				]
+			],
+			[
+				118651.685393259,
+				[
+					[
+						"Rating Popup",
+						"",
+						""
 					]
 				]
 			]
-		],
-		"notes": [],
-		"splashSkin": null,
-		"validScore": false,
-		"gfVersion": "pico-speaker",
-		"bpm": 178,
-		"arrowSkin": null,
-		"needsVoices": true,
-		"song": "Stress"
+		]
 	}
 }
