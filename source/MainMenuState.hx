@@ -33,7 +33,7 @@ typedef MenuData =
 	buttons:Array<String>,
 	font:String,
 	fontOutline:Bool,
-	ludumEngineVersion:Bool
+	ludumEngineVersion:Bool,
 
 }
 class MainMenuState extends MusicBeatState
