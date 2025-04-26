@@ -267,6 +267,11 @@ class Paths
 		return Assets.getText(getPath(key, TEXT));
 	}
 
+	static public function getMenuJson(key):String {
+		var returnString:String = getTextFromFile('menus/$key');
+		return returnString;
+	}
+
 	inline static public function font(key:String)
 	{
 		#if MODS_ALLOWED

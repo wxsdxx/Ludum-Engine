@@ -27,10 +27,14 @@ class MenuDisplayState extends MusicBeatState {
 
     var menuPlaceholder:FlxText;
 
+
     var tabMenu:FlxUITabMenu;
     var addMenuUI:FlxUI;
     var orderMenuUI:FlxUI;
     var menuSettingsUI:FlxUI;
+
+    var addMenuButton:FlxUIButton;
+    var newMenuNameInput:FlxUIInputText;
 
     // Debug \\
 
@@ -48,6 +52,7 @@ class MenuDisplayState extends MusicBeatState {
     //-----------//
 
     
+
 
     function addUI() 
     {
@@ -85,10 +90,10 @@ class MenuDisplayState extends MusicBeatState {
 
         // Add Menu UI //
 
-        var newMenuNameInput:FlxUIInputText = new FlxUIInputText(/*tabMenu.x + 10, tabMenu.y + 25,*/0, 0, "Enter Menu Name", 8);
+        newMenuNameInput = new FlxUIInputText(25, 25, "Enter Menu Name", 8);
         addMenuUI.add(newMenuNameInput);
 
-        var addMenuButton:FlxUIButton = new FlxUIButton(/*tabMenu.x + 10, (newMenuNameInput.y + newMenuNameInput.height) + 10*/0, 0, "Add Menu");
+        addMenuButton = new FlxUIButton(200, 20, "Add Menu");
         addMenuUI.add(addMenuButton);
     }
 
@@ -116,11 +121,11 @@ class MenuDisplayState extends MusicBeatState {
         add(currentMenusTxt);
 
 
-        /*
+        
         menuPlaceholder = new FlxText(-125, 90, 750, "PLACEHOLDER MENU", 50);
         menuPlaceholder.setFormat(Paths.font('vcr.ttf'), 50, FlxColor.BLACK, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-        menuPlaceholder.bold = true; */
-
+        menuPlaceholder.bold = true;
+        
         add(menuPlaceholder);
 
         if (debugging) debuggingText();
@@ -135,32 +140,32 @@ class MenuDisplayState extends MusicBeatState {
 
     public function debuggingText()
         {
-            debugTextY = new FlxText(12, FlxG.height - 44, 0, "Y: " + menuPlaceholder.y, 12);
+            debugTextY = new FlxText(12, FlxG.height - 44, 0, "Y: " + addMenuButton.y, 12);
 		    debugTextY.scrollFactor.set();
 		    debugTextY.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             add(debugTextY);
 
-            debugTextX = new FlxText(12, FlxG.height - 24, 0, "X: " + menuPlaceholder.x, 12);
+            debugTextX = new FlxText(12, FlxG.height - 24, 0, "X: " + addMenuButton.x, 12);
 		    debugTextX.scrollFactor.set();
 		    debugTextX.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
             add(debugTextX);
         }
 
     public function updateDebug() {
-            debugTextY.text = "Y: " + menuPlaceholder.y;
-            debugTextX.text = "X: " + menuPlaceholder.x;
+            debugTextY.text = "Y: " + addMenuButton.y;
+            debugTextX.text = "X: " + addMenuButton.x;
 
             if (FlxG.keys.pressed.LEFT) {
-                menuPlaceholder.x -= 1;
+                addMenuButton.x -= 1;
             }
             if (FlxG.keys.pressed.RIGHT) {
-                menuPlaceholder.x += 1;
+                addMenuButton.x += 1;
             }
             if (FlxG.keys.pressed.UP) {
-                menuPlaceholder.y -= 1;
+                addMenuButton.y -= 1;
             }
             if (FlxG.keys.pressed.DOWN) {
-                menuPlaceholder.y += 1;
+                addMenuButton.y += 1;
             } 
     }
 }
