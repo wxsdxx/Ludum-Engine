@@ -34,6 +34,16 @@ typedef MenuData =
 	font:String,
 	fontOutline:Bool,
 	ludumEngineVersion:Bool,
+	objects:Array<String>,
+	objectBehindButtons:Array<Bool>,
+	objectSprites:Array<String>,
+	objectX:Array<Float>,
+	objectY:Array<Float>,
+	objectAnimated:Array<Bool>,
+	objectAnimationName:Array<String>,
+	objectAnimationFrames:Array<Int>,
+	objectCenteredAcrossX:Array<Bool>,
+	objectCenteredAcrossY:Array<Bool>
 
 }
 class MainMenuState extends MusicBeatState
@@ -65,6 +75,23 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+
+	function createObject(i) {
+		var v:FlxSprite = new FlxSprite(menuJSON.objectX[i],menuJSON.objectY[i]);
+		menuJSON.objectAnimated[i] 
+			? v.frames = Paths.getSparrowAtlas(menuJSON.objectSprites[i])
+			: v.loadGraphic(Paths.image(menuJSON.objectSprites[i]));
+
+		if (menuJSON.objectAnimated[i]) {
+			v.animation.addByPrefix('idle', menuJSON.objectAnimationName[i], menuJSON.objectAnimationFrames[i]);
+			v.animation.play('idle');
+		}
+
+		if (menuJSON.objectCenteredAcrossX[i]) { v.screenCenter(X); }
+		if (menuJSON.objectCenteredAcrossY[i]) { v.screenCenter(Y); }
+		v.scrollFactor.set();
+		add(v);
+	}
 
 	override function create()
 	{
@@ -127,6 +154,12 @@ class MainMenuState extends MusicBeatState
 		add(magenta);
 		
 		// magenta.scrollFactor.set();
+
+		for (i in 0...menuJSON.objects.length) {
+			if (menuJSON.objectBehindButtons[i]) {
+				createObject(i);
+			}
+		}
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -194,18 +227,11 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
-			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
+		for (i in 0...menuJSON.objects.length) {
+			if (!menuJSON.objectBehindButtons[i]) {
+				createObject(i);
 			}
 		}
-		#end
 
 		super.create();
 	}
