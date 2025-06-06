@@ -27,24 +27,13 @@ using StringTools;
 typedef MenuData = 
 {
 	
-	backgroundSprite:String,
-	backgroundDesatSprite:String,
-	cameraMove:Bool,
-	buttons:Array<String>,
-	font:String,
-	fontOutline:Bool,
-	ludumEngineVersion:Bool,
-	objects:Array<String>,
-	objectBehindButtons:Array<Bool>,
-	objectSprites:Array<String>,
+	objectImage:Array<String>,
 	objectX:Array<Float>,
 	objectY:Array<Float>,
-	objectAnimated:Array<Bool>,
-	objectAnimationName:Array<String>,
-	objectAnimationFrames:Array<Int>,
-	objectCenteredAcrossX:Array<Bool>,
-	objectCenteredAcrossY:Array<Bool>
-
+	objectScrollFactorX:Array<Float>,
+	objectScrollFactorY:Array<Float>,
+	objectScale:Array<Float>
+	
 }
 class MainMenuState extends MusicBeatState
 {
@@ -58,8 +47,7 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String>;
-	/*
+	var optionShit:Array<String> = 
 	[
 		'story_mode',
 		'freeplay',
@@ -69,29 +57,10 @@ class MainMenuState extends MusicBeatState
 		'credits',
 		'options'
 	];
-	*/
 
-	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-
-	function createObject(i) {
-		var v:FlxSprite = new FlxSprite(menuJSON.objectX[i],menuJSON.objectY[i]);
-		menuJSON.objectAnimated[i] 
-			? v.frames = Paths.getSparrowAtlas(menuJSON.objectSprites[i])
-			: v.loadGraphic(Paths.image(menuJSON.objectSprites[i]));
-
-		if (menuJSON.objectAnimated[i]) {
-			v.animation.addByPrefix('idle', menuJSON.objectAnimationName[i], menuJSON.objectAnimationFrames[i]);
-			v.animation.play('idle');
-		}
-
-		if (menuJSON.objectCenteredAcrossX[i]) { v.screenCenter(X); }
-		if (menuJSON.objectCenteredAcrossY[i]) { v.screenCenter(Y); }
-		v.scrollFactor.set();
-		add(v);
-	}
 
 	override function create()
 	{
@@ -119,16 +88,10 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		menuJSON = Json.parse(Paths.getTextFromFile('images/menuTitleSettings.json'));
+		menuJSON = Json.parse(Paths.getTextFromFile('menus/main-menu.json'));
 
-		optionShit = menuJSON.buttons;
-
+		/*
 		var yScroll:Float;
-		if (menuJSON.cameraMove) {
-			yScroll = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		} else {
-			yScroll = 0;
-		}
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundSprite));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -137,29 +100,23 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		//bg.color = 0xfffbff00;
 		add(bg);
+		*/
+
+		for (i in 0...menuJSON.objectImage.length)
+		{
+			var obj:FlxSprite = new FlxSprite(menuJSON.objectX[i], menuJSON.objectY[i]);
+			obj.loadGraphic(Paths.image(menuJSON.objectImage[i]));
+			obj.scrollFactor.set(menuJSON.objectScrollFactorX[i], menuJSON.objectScrollFactorY[i]);
+			obj.setGraphicSize(Std.int(obj.width * menuJSON.objectScale[i]));
+
+			add(obj);
+		}
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image(menuJSON.backgroundDesatSprite));
-		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
 		
-		// magenta.scrollFactor.set();
-
-		for (i in 0...menuJSON.objects.length) {
-			if (menuJSON.objectBehindButtons[i]) {
-				createObject(i);
-			}
-		}
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -183,11 +140,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float;
-			if (menuJSON.cameraMove) {
-				scr = (optionShit.length - 4) * 0.135;
-			} else {
-				scr = 0;
-			}
+			scr = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
@@ -200,7 +153,7 @@ class MainMenuState extends MusicBeatState
 		var ludumVersionText:FlxText = new FlxText(12, FlxG.height - 54, 0, "Ludum Engine v" + ludumEngineVersion, 12);
 		ludumVersionText.scrollFactor.set();
 
-		if (menuJSON.ludumEngineVersion) { add(ludumVersionText); }
+		add(ludumVersionText);
 
 		var psychVersionText:FlxText = new FlxText(12, FlxG.height - 54, 0, "Psych Engine v" + psychEngineVersion, 12);
 		psychVersionText.scrollFactor.set();
@@ -213,25 +166,13 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		add(versionShit);
 
-		if (menuJSON.fontOutline) {
-			versionShit.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			psychVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			ludumVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		} else {
-			versionShit.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
-			psychVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
-			ludumVersionText.setFormat(Paths.font(menuJSON.font), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.NONE);
-		}
+		versionShit.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psychVersionText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		ludumVersionText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
-
-		for (i in 0...menuJSON.objects.length) {
-			if (!menuJSON.objectBehindButtons[i]) {
-				createObject(i);
-			}
-		}
 
 		super.create();
 	}
@@ -293,8 +234,6 @@ class MainMenuState extends MusicBeatState
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{

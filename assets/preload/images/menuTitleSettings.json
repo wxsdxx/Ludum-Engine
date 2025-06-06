@@ -13,34 +13,24 @@
 	"fontOutline": true,
 	"ludumEngineVersion": true,
 	"objects": [
-		null
 	],
 	"objectBehindButtons": [
-		true
 	],
 	"objectSprites": [
-		"logoBumpin"
 	],
 	"objectX": [
-		0
 	],
 	"objectY": [
-		0
 	],
 	"objectAnimated": [
-		true
 	],
 	"objectAnimationName": [
-		"logo bumpin"
 	],
 	"objectAnimationFrames": [
-		24
 	],
 	"objectCenteredAcrossX": [
-		true
 	],
 	"objectCenteredAcrossY": [
-		true
 	],
 	"README": [
 		"The object you are editing is based on the order you have it in the 'object' array"

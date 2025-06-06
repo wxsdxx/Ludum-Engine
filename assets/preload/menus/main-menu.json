@@ -1,0 +1,27 @@
+{
+    "objectImage": 
+    [
+        "menuBG"
+    ],
+    "objectX":
+    [
+        -80
+    ],
+    "objectY":
+    [
+        0
+    ],
+    "objectScrollFactorX":
+    [
+        0
+    ],
+    "objectScrollFactorY":
+    [
+        0.135
+    ],
+    "objectScale":
+    [
+        1.175
+    ],
+    "type": "Main-Menu"
+}
