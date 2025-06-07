@@ -157,6 +157,11 @@ class Paths
 		return 'assets/$file';
 	}
 
+	inline static public function menus()
+	{
+		return getPreloadPath('menus');
+	}
+
 	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
 	{
 		return getPath(file, type, library);
