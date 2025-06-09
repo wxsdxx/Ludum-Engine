@@ -27,9 +27,15 @@ cls
 
 :: === Version Setup ===
 color 6
-echo Installing Ludum Engine Haxe Libraries
+echo Installing Ludum Engine Haxe Libraries...
 cd ..
 haxelib --global run hmm install
+
+color 2
+echo Fixing VLC Error...
+echo.
+haxelib --global dev hxCodec .haxelib/hxCodec/2,5,1
+echo.
 
 :: === Done ===
 cls
@@ -38,5 +44,5 @@ echo.
 echo Setup Complete!
 echo You can now build the engine.
 echo.
-timeout /t 3 /nobreak >nul 
+timeout /t 3 /nobreak >nul
 pause
