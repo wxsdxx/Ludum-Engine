@@ -30,7 +30,7 @@ class MenuDisplayState extends MusicBeatState {
     //-----------//
 
 
-    var backdrop:FlxBackdrop = new FlxBackdrop(Paths.image('menuBG'), true, true, 0, 0);
+    var backdrop:FlxBackdrop = new FlxBackdrop(Paths.image('menuBG'), XY, 0, 0);
     var backdropOverlay:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
 
     var currentMenusBox:FlxSprite;
