@@ -28,7 +28,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -261,7 +261,7 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite;
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image(titleJSON.backgroundSprite));
 		var scrollingBG:FlxBackdrop;
-		scrollingBG = new FlxBackdrop(Paths.image(titleJSON.backgroundSprite), true, true, 0, 0);
+		scrollingBG = new FlxBackdrop(Paths.image(titleJSON.backgroundSprite), XY, 0, 0);
 		scrollingBG.velocity.set((titleJSON.scrollPixelsPerSecondX * 100), (titleJSON.scrollPixelsPerSecondY * 100));
 
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
